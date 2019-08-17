@@ -14,12 +14,9 @@ ap.add_argument("-m", "--mode", required=True,
 	help="demo or run")
 args = vars(ap.parse_args())
 
-# this method looks through the past 50 comments a user has, classifies it, and determines
-# whether the user has been naughty or nice depending on which is counted more
+
 def naughty_or_nice(user, post=None):
     user_comments = []
-
-    # checks the 50 most recent comments and adds to list for analyzing
     comments = reddit.redditor(user).comments.new(limit=10)
     for comment in comments:
         sent, confidence = c.sentiment(comment.body)
@@ -39,7 +36,8 @@ def naughty_or_nice(user, post=None):
         if post != None:
             post.reply("Ho ho ho, {} has been a nice user this year! Come to the North Pole to pick up your gift".format(user))
 
-# authenticating user (Is there a better way to do this without hardcoding my id/password)
+	
+# authenticating user
 reddit = praw.Reddit(client_id='client_id',
                      client_secret='client_secret',
                      password='password',
